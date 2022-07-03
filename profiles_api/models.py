@@ -22,7 +22,7 @@ class UserProfileManager():
         return user
           
 
-class UserProfile():
+class UserProfile(AbstractBaseUser, PermissionsMixin):
     """ Database for users in system """
     email = models.EmailField(max_length = 255, unique = True)
     name = models.CharField(max_length = 255)
