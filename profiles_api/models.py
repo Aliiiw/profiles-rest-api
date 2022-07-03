@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 
-class UserProfileManager():
+class UserProfileManager(BaseUserManager):
     """ Manager of user """
     def create_user(self, email, name, password = None):
         if not email :
