@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -47,11 +48,28 @@ class HelloApiView(APIView):
 class HelloViewSet(viewsets.ViewSet):
     
     def list(self, request):
+        serializer_class = serializers.HelloSerializers
         api_viewSet = [
             'Uses Api actions',
             'auto map urls',
             'more functionality less code',
         ]
         return Response({'viewSet' : api_viewSet})
+    
+    def create(self, request):
+        serializer = self.serializer_class(data=request.data)
+        
+        if serializer.is_valid():
+            name = serializer.validated_data.get('name')
+            message = f'Hello {name}!'
+            
+            return Response({'message' : message})
+        
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    def retrieve(self, request, pk=None):
+        return Response({'method' : 'Get'})
     
     
