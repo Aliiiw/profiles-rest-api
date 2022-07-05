@@ -6,11 +6,10 @@ from rest_framework import status, viewsets
 from profiles_api import serializers
 
 
-
-
 class HelloApiView(APIView):
     """ Api testing class"""
     serializers_class = serializers.HelloSerializers
+    
     
     def get(self, request, format=None):
         api_view = [
@@ -46,15 +45,17 @@ class HelloApiView(APIView):
         
             
 class HelloViewSet(viewsets.ViewSet):
+    serializer_class = serializers.HelloSerializers
     
     def list(self, request):
-        serializer_class = serializers.HelloSerializers
+        
         api_viewSet = [
             'Uses Api actions',
             'auto map urls',
             'more functionality less code',
         ]
         return Response({'viewSet' : api_viewSet})
+    
     
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -72,4 +73,15 @@ class HelloViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
         return Response({'method' : 'Get'})
     
+    
+    def update(self, request, pk=None):
+        return Response({'method' : 'Put'})
+    
+    
+    def partial_update(self, request, pk=None):
+        return Response({'method' : 'Patch'})
+    
+    
+    def destroy(self, request, pk=None):
+        return Response({'method' : 'Delete'})
     
