@@ -1,3 +1,4 @@
+from pyexpat import model
 from unicodedata import name
 from rest_framework import serializers
 from profiles_api import models
@@ -31,3 +32,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
         )
         return user
   
+  
+class ProfileFeedItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ProfileFeedItem
+        fields = ('id', 'user_profile', 'status_text', 'created_on')
+        extra_kwarg = {'user_profile' : {'read_only' : True}}
+        
